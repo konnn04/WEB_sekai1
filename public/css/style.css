@@ -345,4 +345,5 @@ main #list #my-phone .img .playlist li{
     width: calc(100% / 12 - 3px);
     height:  30%;
     background-color: #ffffff7c;
+    transition: height .1s ease;
 }

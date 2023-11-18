@@ -11,6 +11,7 @@ const main = async () =>{
     let domPlaylistItem = document.querySelectorAll(".playlist li") 
     initEvent(domPlaylistItem,srcAudio,config)
     playTrailer(srcAudio,config)
+    wave(srcAudio,config)
 }
 
 function initEvent(dom,srcAudio,config) {
@@ -62,6 +63,7 @@ function initEvent(dom,srcAudio,config) {
             })
         }
         playTrailer(srcAudio,config)
+        
     });
 }
 
@@ -150,18 +152,17 @@ function wave(srcAudio,config) {
         return
     }
     let k = config.playingTrailer
-    let beat = srcAudio[k].bpm / 60
+    let beat = srcAudio[k].bpm
     let maxHeight =  $(".musicWave1").height() *3/4
-    // console.log(k + "|||" + config.playingTrailer)
-    let itv = setInterval(()=>{
-        if (k != config.playingTrailer) {
-            alert("err")
-            clearInterval(itv)
-        }
+    if (document.itv1) {
+        clearInterval(document.itv1)
+    }
+    let m = 0
+    document.itv1 = setInterval(()=>{
        $(".musicWave1 .char").each(function(e) {
             $(this).height(Math.random() * maxHeight)
         });
-    },1000)
+    },8000 / beat)
 
 }
 
