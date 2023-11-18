@@ -1,0 +1,42 @@
+[
+    {
+        "title":"Wildfire",
+        "artist":"Hoyomix",
+        "diff":10,
+        "avt":"./public/img/Wildfire.jpg",
+        "src":"./public/audio/Wildfire.mp3",
+        "from":104,
+        "end":140,
+        "bpm":72
+    },
+    {
+        "title":"Totemo Suteki na Rokugatsu Deshita",
+        "artist":" 25-ji, Nightcord de.",
+        "diff":12,
+        "avt":"./public/img/Totemo Suteki na Rokugatsu Deshita.jpg",
+        "src":"./public/audio/Totemo Suteki na Rokugatsu Deshita.ogg",
+        "from":50,
+        "end": 83,
+        "bpm":210
+    },
+    {
+        "title":"IDSMILE",
+        "artist":" 25-ji, Nightcord de.",
+        "diff":9,
+        "avt":"./public/img/IDSMILE.jpg",
+        "src":"./public/audio/IDSMILE.ogg",
+        "from":151.5,
+        "end":179.5,
+        "bpm":171
+    },
+    {
+        "title":"Kamippoi na",
+        "artist":" 25-ji, Nightcord de.",
+        "diff":13,
+        "avt":"./public/img/Kamippoi na.jpg",
+        "src":"./public/audio/Kamippoi na.ogg",
+        "from":49.5,
+        "end":84,
+        "bpm":142
+    }
+]
