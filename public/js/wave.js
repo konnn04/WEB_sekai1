@@ -16,12 +16,16 @@ function wave(srcAudio,config) {
         if (times >= 7) {
             if (times > 8 ) times = 0
             $(".musicWave1 .char").each(function(e) {
-                $(this).height(Math.random() * maxHeight)
+                let r = (Math.random() * maxHeight) * (srcAudio[k].a.volume / config.musicVol)
+                $(this).height(r)
             });
         }else{
             $(".musicWave1 .char").each(function(e) {
-                $(this).height(Math.random() * maxHeight * .6)
+                let r = (Math.random() * maxHeight * .6) * (srcAudio[k].a.volume / config.musicVol)
+                $(this).height(r)
             });
+            // console.log(srcAudio[k].a.volume / config.musicVol)
+            
         }        
     },deltaTime)
 

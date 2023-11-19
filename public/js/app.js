@@ -1,4 +1,6 @@
-const main = async () =>{    
+const main = async () =>{  
+    checkScreenSize()
+    document.INTERVAL = {}  
     const config = {
         "playingTrailer" : 0,
         "musicVol":.2
@@ -6,7 +8,7 @@ const main = async () =>{
     let dataGame = await fetch("./public/js/data.json") 
     .then(res => res.json())
     .then(data => data)
-    const srcAudio = initAudio(dataGame) 
+    const srcAudio = initAudio(dataGame,config) 
     await $("#list .playlist").html(initPlaylist(dataGame,config) );   
     let domPlaylistItem = document.querySelectorAll(".playlist li") 
     initEvent(domPlaylistItem,srcAudio,config)
@@ -22,8 +24,18 @@ function initEvent(dom,srcAudio,config) {
             let option = Math.floor(e.offsetY / ($(this).height() / 7))
             if (option == 3 ) return
             changeTrailerMusic(dom,(option - 3)*-1)
+            config.playingTrailer = $(".playlist .item7").attr("q")
             playTrailer(srcAudio,config)
         })
+    //Sự kiện chơi
+    $(".box-controller .start").on("click",(e)=>{
+        let obj = {
+            "title":"Tính năng bảo trì!",
+            "detail":"Tính năng vẫn đang được phát triển, vui lòng chờ một thời gian sau rồi quay lại nhé!",
+            "type":"warning"
+        }
+        createNotification(obj,5000)
+    })
         
 }
 
@@ -59,34 +71,34 @@ function changeTrailerMusic(dom, offset) {
 }
 
 function playTrailer(srcAudio,config) {
-    wave(srcAudio,config)
+    
     let k = parseInt(document.querySelector(".item7").getAttribute("q"))
     $(".first-start .info p:first-child").text(srcAudio[k].title)
     $(".first-start .info p:last-child").text(srcAudio[k].artist)
     $(".first-start .avt img").attr("src",srcAudio[k].thumb)
     // srcAudio[config.playTrailer].a.pause()
-    config.playTrailer = k
+    config.playingTrailer = k
     srcAudio[k].a.currentTime = srcAudio[k].from
     srcAudio[k].a.volume = config.musicVol
     srcAudio[k].a.play()
     $(".bg img").attr("src",srcAudio[k].thumb)
     let itv = setInterval(()=>{
-        if (k != config.playTrailer) {
+        if (k != config.playingTrailer) {
             clearInterval(itv)
             srcAudio[k].a.pause()
         }            
-        if (srcAudio[k].a.currentTime > srcAudio[k].end - 1 ) {
-            srcAudio[k].a.volume = (srcAudio[k].a.volume - (config.musicVol/10) < 0) ?0 : srcAudio[k].a.volume - (config.musicVol/10);
+        if (srcAudio[k].a.currentTime > srcAudio[k].end - 3 ) {
+            srcAudio[k].a.volume = (srcAudio[k].a.volume - (config.musicVol/30) < 0) ?0 : srcAudio[k].a.volume - (config.musicVol/30);
         }
         if (srcAudio[k].a.currentTime > srcAudio[k].end - .1 ) {
             srcAudio[k].a.currentTime = srcAudio[k].from
             srcAudio[k].a.volume = config.musicVol
         }
     },100)
-    
+    wave(srcAudio,config)    
 }
 
-function initAudio(data) {
+function initAudio(data,config) {
     let a = []
     data.forEach(e => {
         a.push({
@@ -98,6 +110,7 @@ function initAudio(data) {
             artist:e.artist,
             bpm:e.bpm
         })
+        a[a.length-1].a.volume = config.musicVol
     })
     
     return a
@@ -109,7 +122,7 @@ function initPlaylist(data,config) {
         let length = (d< 15) ? d*(Math.ceil(15/d)) : d
         for (let i=0; i<length ; i++) {           
             if (i == 7) {
-                config.playTrailer = i % d 
+                config.playingTrailer = i % d 
                 $(".first-start .info p:first-child").text(data[i % d].title)
                 $(".first-start .info p:last-child").text(data[i % d].artist)
                 $(".first-start .avt img").attr("src",data[i % d].avt)
@@ -137,7 +150,19 @@ function initPlaylist(data,config) {
 // const c = (type,text) =>{
 //     console.type(text)
 // }
-
+window.onresize = (e)=>{
+    checkScreenSize()  
+}
 
 
 window.onload = main()
+
+function checkScreenSize() {
+    if ((window.innerWidth - window.innerHeight < 0) || (window.innerWidth< 400) || (window.innerHeight < 400) ) {
+        document.querySelector("block").style.display = "flex"
+        document.querySelector("main").style.display = "none"
+    }else{
+        document.querySelector("block").style.display = "none"
+        document.querySelector("main").style.display = "flex"
+    }  
+}
