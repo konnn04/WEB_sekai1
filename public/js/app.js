@@ -10,65 +10,57 @@ const main = async () =>{
     await $("#list .playlist").html(initPlaylist(dataGame,config) );   
     let domPlaylistItem = document.querySelectorAll(".playlist li") 
     initEvent(domPlaylistItem,srcAudio,config)
-    playTrailer(srcAudio,config)
-    wave(srcAudio,config)
+    // playTrailer(srcAudio,config)
+    wave()
 }
 
 function initEvent(dom,srcAudio,config) {
-    let cd = false
-    let array = Array.from(dom)
-    $("#my-phone img").on("click", function(e){
-        if (cd) {
-            return
-        }
-        cd=true
-        setTimeout(()=>{
-            cd=false
-        },200)
-        if (e.clientY > $("#my-phone img").height() / 2 ) {
-            array.forEach((e,i)=>{
-                let p = parseInt(e.classList[0].slice(4))
-                e.removeAttribute('class')
-                p = (p + 1 >= array.length) ? p + 1 - array.length : p + 1
-                e.classList.add("item" + p)
-                if (p > 8) {
-                    e.classList.add("hid")
-                }
-                if (p == 8) {
-                    e.classList.add("hide")
-                }
-
-                if (p == 0) {
-                    e.classList.add("show")
-                }
-
-            })
-            
-        }else{
-            array.forEach((e,i)=>{
-                let p = parseInt(e.classList[0].slice(4))
-                e.removeAttribute('class')
-                p = (p - 1 < 0) ? p + array.length - 1 : p - 1
-                e.classList.add("item"+ p)
-                if (p > 8) {
-                    e.classList.add("hid")
-                }
-                if (p == 8) {
-                    e.classList.add("show")
-                }
-                if (p == 0) {
-                    e.classList.add("hide")
-                }
-                
-            })
-        }
-        playTrailer(srcAudio,config)
+    document.cdTrailer = false
+    
+    //Sự kiện chọn
+        $("#my-phone .img .selection").on("click", function(e){
+            let option = Math.floor(e.offsetY / ($(this).height() / 7))
+            if (option == 3 ) return
+            changeTrailerMusic(dom,(option - 3)*-1)
+            playTrailer(srcAudio,config)
+        })
         
-    });
+}
+
+function changeTrailerMusic(dom, offset) {
+    //Tạo delay
+    if (document.cdTrailer) {
+        return
+    }
+    document.cdTrailer=true
+    setTimeout(()=>{
+        document.cdTrailer=false
+    },200)
+    //Chuyển bài
+    // console.log(dom)
+    Array.from(dom).forEach((e,i)=>{
+        let p = parseInt(e.classList[0].slice(4))
+        e.removeAttribute('class')
+        p = (offset > 0) 
+            ? ((p + offset >= dom.length) ? p + offset - dom.length : p + offset) 
+            : ((p + offset < 0) ? p + offset + dom.length : p + offset) 
+        e.classList.add("item" + p)
+        if (p>14) {
+            e.classList.add("hid")
+        }
+        if (p > 10 && p<15) {
+            e.classList.add((offset > 0 )?"hide":"show")
+        }
+        if (p < 4) {
+            e.classList.add((offset > 0 )?"show":"hide")
+        }
+    })  
+
 }
 
 function playTrailer(srcAudio,config) {
-    let k = parseInt(document.querySelector(".item4").getAttribute("q"))
+    wave(srcAudio,config)
+    let k = parseInt(document.querySelector(".item7").getAttribute("q"))
     $(".first-start .info p:first-child").text(srcAudio[k].title)
     $(".first-start .info p:last-child").text(srcAudio[k].artist)
     $(".first-start .avt img").attr("src",srcAudio[k].thumb)
@@ -114,13 +106,13 @@ function initAudio(data) {
 function initPlaylist(data,config) {
     let dom = ""
         let d = data.length
-        let length = (d< 9) ? d*(Math.ceil(9/d)) : d
+        let length = (d< 15) ? d*(Math.ceil(15/d)) : d
         for (let i=0; i<length ; i++) {           
-            if (i == 4) {
+            if (i == 7) {
                 config.playTrailer = i % d 
                 $(".first-start .info p:first-child").text(data[i % d].title)
                 $(".first-start .info p:last-child").text(data[i % d].artist)
-                $(".first-start .avt img").attr("src",data[i % d].thumb)
+                $(".first-start .avt img").attr("src",data[i % d].avt)
             }
             dom += 
             `
@@ -142,28 +134,10 @@ function initPlaylist(data,config) {
         return dom
 }
 
-const c = (type,text) =>{
-    console.type(text)
-}
+// const c = (type,text) =>{
+//     console.type(text)
+// }
 
-function wave(srcAudio,config) {
-    if (!srcAudio) {
-        $(".musicWave1 .char").height(0)
-        return
-    }
-    let k = config.playingTrailer
-    let beat = srcAudio[k].bpm
-    let maxHeight =  $(".musicWave1").height() *3/4
-    if (document.itv1) {
-        clearInterval(document.itv1)
-    }
-    let m = 0
-    document.itv1 = setInterval(()=>{
-       $(".musicWave1 .char").each(function(e) {
-            $(this).height(Math.random() * maxHeight)
-        });
-    },8000 / beat)
 
-}
 
 window.onload = main()

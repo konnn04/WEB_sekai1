@@ -62,15 +62,22 @@ main #list #my-phone .img img{
     width: 100%;
 }
 
-main #list #my-phone .img .playlist{
+main #list #my-phone .img .playlist,
+main #list #my-phone .img .selection{
     position: absolute;
     top: 12%;
     left: 10%;
     width: 80%;
     height: 78%;
     z-index: -1;
+}
+main #list #my-phone .img .playlist{
     background: radial-gradient(rgba(255, 168, 254, 0.302),rgba(145, 255, 255, 0.394),rgba(60, 255, 57, 0.294));
     overflow: hidden;
+}
+
+main #list #my-phone .img .selection {
+    z-index: 3;
 }
 
 main #list #my-phone .img .playlist li{
@@ -151,45 +158,74 @@ main #list #my-phone .img .playlist li{
     top: calc(100% / 2);
     opacity: 0;
 }
-
 .playlist li.item0{
-    top: calc(100% / 7 * -1);
+    top: calc(100% / 7 * -4);
     opacity: 1;
 }
 
 .playlist li.item1{
+    top: calc(100% / 7 * -3);
+    opacity: 1;
+}
+
+.playlist li.item2{
+    top: calc(100% / 7 * -2);
+    opacity: 1;
+}
+
+.playlist li.item3{
+    top: calc(100% / 7 * -1);
+    opacity: 1;
+}
+
+.playlist li.item4{
     top: calc(100% / 7 * 0);
     opacity: 1;
 }
-.playlist li.item2{
+.playlist li.item5{
     top: calc(100% / 7 * 1);
     opacity: 1;
 }
-.playlist li.item3{
+.playlist li.item6{
     top: calc(100% / 7 * 2);
     opacity: 1;
 }
-.playlist li.item4{
+.playlist li.item7{
     top: calc(100% / 7 * 3);
     scale: 1.05;
     background: linear-gradient(45deg,#e32ba9,#ec64a1,rgb(230, 57, 57));
     opacity: 1;
 }
-.playlist li.item5{
+.playlist li.item8{
     top: calc(100% / 7 * 4);
     opacity: 1;
 }
-.playlist li.item6{
+.playlist li.item9{
     top: calc(100% / 7 * 5);
     opacity: 1;
 }
-.playlist li.item7{
+.playlist li.item10{
     top: calc(100% / 7 * 6);
     opacity: 1;
 }
 
-.playlist li.item8{
+.playlist li.item11{
     top: calc(100% / 7 * 7);
+    opacity: 1;
+}
+
+.playlist li.item12{
+    top: calc(100% / 7 * 8);
+    opacity: 1;
+}
+
+.playlist li.item13{
+    top: calc(100% / 7 * 9);
+    opacity: 1;
+}
+
+.playlist li.item14{
+    top: calc(100% / 7 * 10);
     opacity: 1;
 }
 
@@ -337,13 +373,14 @@ main #list #my-phone .img .playlist li{
     align-items: flex-end;
     border-bottom: 2px solid #fff;
     z-index: -3;
-    /* filter: blur(2px); */
 }
 
 
 #list .musicWave1 .char{
     width: calc(100% / 12 - 3px);
     height:  30%;
-    background-color: #ffffff7c;
+    background-color: rgba(255, 255, 255, 0.266);
     transition: height .1s ease;
+    filter: blur(2px);
+
 }
