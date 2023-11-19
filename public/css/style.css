@@ -256,6 +256,7 @@ main #list #my-phone .img .playlist li{
     align-items: center;
     justify-content: center;
     border-radius: 2rem;
+    background-color: #00000022;
 }
 
 #list .first-start .box-controller .avt {

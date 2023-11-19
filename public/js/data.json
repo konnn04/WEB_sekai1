@@ -38,5 +38,50 @@
         "from":49.5,
         "end":84,
         "bpm":142
+    },
+    {
+        "title":"Don't Fight The Music",
+        "artist":"Chroma",
+        "diff":15,
+        "avt":"./public/img/Don't Fight The Music.jpg",
+        "src":"./public/audio/Don't Fight The Music.ogg",
+        "from":53.5,
+        "end":67,
+        "bpm":200
     }
+    ,
+    {
+        "title":"NEO",
+        "artist":"JIN",
+        "diff":11,
+        "avt":"./public/img/NEO.jpg",
+        "src":"./public/audio/NEO.ogg",
+        "from":43,
+        "end":71,
+        "bpm":190
+    }
+    ,
+    {
+        "title":"Phony",
+        "artist":"Yoisaki Kanade",
+        "diff":13,
+        "avt":"./public/img/Phony.jpg",
+        "src":"./public/audio/Phony.ogg",
+        "from":61.7,
+        "end":90,
+        "bpm":170
+    }
+    ,
+    {
+        "title":"Idol",
+        "artist":"Yoasobi",
+        "diff":12,
+        "avt":"./public/img/Idol.jpg",
+        "src":"./public/audio/Idol.ogg",
+        "from":54.8,
+        "end":89.7,
+        "bpm":166
+    }
+    
+
 ]
