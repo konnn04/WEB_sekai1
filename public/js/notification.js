@@ -1,3 +1,7 @@
+if (!document.querySelector("#overplay-notification")) {
+    document.body.innerHTML+=`<section id="overplay-notification" class="terminal"></section>`
+}
+
 function createNotification(obj,timeOut) {
     let icon = {
         "right":`fa-circle-check`,
@@ -79,6 +83,8 @@ function createNotification(obj,timeOut) {
 }
 
 function updateNotification(bool) {
+    
+
     let d = document.querySelector("#overplay-notification")
     if (bool) {
         d.style.display= "flex"

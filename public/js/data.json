@@ -2,7 +2,7 @@
     {
         "title":"Wildfire",
         "artist":"Hoyomix",
-        "diff":10,
+        "diff":[0,9,0],
         "avt":"./public/img/Wildfire.jpg",
         "src":"./public/audio/Wildfire.mp3",
         "from":104,
@@ -12,7 +12,7 @@
     {
         "title":"Totemo Suteki na Rokugatsu Deshita",
         "artist":" 25-ji, Nightcord de.",
-        "diff":12,
+        "diff":[0,12,0],
         "avt":"./public/img/Totemo Suteki na Rokugatsu Deshita.jpg",
         "src":"./public/audio/Totemo Suteki na Rokugatsu Deshita.ogg",
         "from":50,
@@ -22,7 +22,7 @@
     {
         "title":"IDSMILE",
         "artist":" 25-ji, Nightcord de.",
-        "diff":9,
+        "diff":[0,9,12],
         "avt":"./public/img/IDSMILE.jpg",
         "src":"./public/audio/IDSMILE.ogg",
         "from":151.5,
@@ -32,7 +32,7 @@
     {
         "title":"Kamippoi na",
         "artist":" 25-ji, Nightcord de.",
-        "diff":13,
+        "diff":[0,12,0],
         "avt":"./public/img/Kamippoi na.jpg",
         "src":"./public/audio/Kamippoi na.ogg",
         "from":49.5,
@@ -42,7 +42,7 @@
     {
         "title":"Don't Fight The Music",
         "artist":"Chroma",
-        "diff":15,
+        "diff":[0,15,18],
         "avt":"./public/img/Don't Fight The Music.jpg",
         "src":"./public/audio/Don't Fight The Music.ogg",
         "from":53.5,
@@ -53,7 +53,7 @@
     {
         "title":"NEO",
         "artist":"JIN",
-        "diff":11,
+        "diff":[0,11,16],
         "avt":"./public/img/NEO.jpg",
         "src":"./public/audio/NEO.ogg",
         "from":43,
@@ -64,7 +64,7 @@
     {
         "title":"Phony",
         "artist":"Yoisaki Kanade",
-        "diff":13,
+        "diff":[0,10,14],
         "avt":"./public/img/Phony.jpg",
         "src":"./public/audio/Phony.ogg",
         "from":61.7,
@@ -75,7 +75,7 @@
     {
         "title":"Idol",
         "artist":"Yoasobi",
-        "diff":12,
+        "diff":[0,12,18],
         "avt":"./public/img/Idol.jpg",
         "src":"./public/audio/Idol.ogg",
         "from":54.8,

@@ -3,7 +3,9 @@ const main = async () =>{
     document.INTERVAL = {}  
     const config = {
         "playingTrailer" : 0,
-        "musicVol":.2
+        "musicVol":.2,
+        "diffType":1,
+        "diff":0
     }
     let dataGame = await fetch("./public/js/data.json") 
     .then(res => res.json())
@@ -20,15 +22,38 @@ function initEvent(dom,srcAudio,config) {
     document.cdTrailer = false
     
     //Sự kiện chọn
-        $("#my-phone .img .selection").on("click", function(e){
+        $(".box-controller .selection").on("click", function(e){
             let option = Math.floor(e.offsetY / ($(this).height() / 7))
-            if (option == 3 ) return
-            changeTrailerMusic(dom,(option - 3)*-1)
-            config.playingTrailer = $(".playlist .item7").attr("q")
-            playTrailer(srcAudio,config)
+            if (option == 3 ) return     
+            changeTrailerMusic(dom,(option - 3)*-1, config)    
+            playTrailer(srcAudio,config)   
+            config.diff = srcAudio[config.playingTrailer].diff[config.diffType]
+            config.playingTrailer = $(".playlist .item7").attr("q")            
+            changeDisplayDiffMusic(config,srcAudio)           
         })
     //Sự kiện chơi
-    $(".box-controller .start").on("click",(e)=>{
+    $(".my-phone .start").on("click",(e)=>{
+
+        if (config.diff == 0) {
+            let obj = {
+            "title":"Sai độ khó!",
+            "detail":`Bài hát bạn chọn không hỗ trợ độ khó ${["NORMAL","EXPERT","MASTER"][config.diffType]}`,
+            "type":"wrong"
+            }
+            createNotification(obj,5000)
+            return
+        }
+        $("main #ready").removeClass("hide")
+        $("main #list").addClass("hide")
+        // let obj = {
+        //     "title":"Tính năng bảo trì!",
+        //     "detail":"Tính năng vẫn đang được phát triển, vui lòng chờ một thời gian sau rồi quay lại nhé!",
+        //     "type":"warning"
+        // }
+        // createNotification(obj,5000)
+    })
+
+    $("#ready .start").on("click",(e)=>{
         let obj = {
             "title":"Tính năng bảo trì!",
             "detail":"Tính năng vẫn đang được phát triển, vui lòng chờ một thời gian sau rồi quay lại nhé!",
@@ -36,10 +61,59 @@ function initEvent(dom,srcAudio,config) {
         }
         createNotification(obj,5000)
     })
+
+    $(".my-phone .back").on("click",(e)=>{
+        $("main #list").removeClass("hide")
+        $("main #ready").addClass("hide")
+    })
         
 }
 
-function changeTrailerMusic(dom, offset) {
+function changeDisplayDiffMusic (config,data){
+    
+    $(".my-phone .diff-text").text(["Normal","Expert","Master"][config.diffType])
+    $(".my-phone .diff-text").css({
+        "backgroundColor": ["#00e052","#e61b7d","#6a0284"][config.diffType]
+    })
+    let diffDom = ""
+    data[config.playingTrailer].diff.forEach((e,i)=>{
+        if (e!=0) {
+            diffDom+=`<div class="item ${["normal","expert","master"][i]} ${config.diffType == i ? "select" : ""}"><p>${e}</p></div>`
+        }
+    })
+    $(".my-phone .diff").html(diffDom) 
+
+    $(".my-phone .diff .normal").on("click",(e)=>{
+        config.diffType = 0
+        config.diff = data[config.playingTrailer].diff[0]
+        changeDisplayListDiffMusic(config,data)
+        changeDisplayDiffMusic (config, data)
+    })
+
+    $(".my-phone .diff .expert").on("click",(e)=>{
+        config.diffType = 1
+        config.diff = data[config.playingTrailer].diff[1]
+        changeDisplayListDiffMusic(config,data)
+        changeDisplayDiffMusic (config, data)
+    })
+
+    $(".my-phone .diff .master").on("click",(e)=>{
+        config.diffType = 2
+        config.diff = data[config.playingTrailer].diff[2]
+        changeDisplayListDiffMusic(config,data)
+        changeDisplayDiffMusic (config, data)
+    })
+}
+
+function changeDisplayListDiffMusic(config,data) {
+    let dom = Array.from($(".playlist li"))
+    dom.forEach((e,i)=>{
+        let q = parseInt(e.getAttribute("q"))
+        e.querySelector(".diff span").innerText = (data[q].diff[config.diffType]  == 0 ? 'X' : data[q].diff[config.diffType])
+    })
+}
+
+function changeTrailerMusic(dom, offset, config) {
     //Tạo delay
     if (document.cdTrailer) {
         return
@@ -67,15 +141,15 @@ function changeTrailerMusic(dom, offset) {
             e.classList.add((offset > 0 )?"show":"hide")
         }
     })  
-
+    //Chuyen do kho
 }
 
 function playTrailer(srcAudio,config) {
     
     let k = parseInt(document.querySelector(".item7").getAttribute("q"))
-    $(".first-start .info p:first-child").text(srcAudio[k].title)
-    $(".first-start .info p:last-child").text(srcAudio[k].artist)
-    $(".first-start .avt img").attr("src",srcAudio[k].thumb)
+    $(".my-phone .info p:first-child").text(srcAudio[k].title)
+    $(".my-phone .info p:last-child").text(srcAudio[k].artist)
+    $(".my-phone .avt img").attr("src",srcAudio[k].thumb)
     // srcAudio[config.playTrailer].a.pause()
     config.playingTrailer = k
     srcAudio[k].a.currentTime = srcAudio[k].from
@@ -108,6 +182,7 @@ function initAudio(data,config) {
             thumb:e.avt,
             title:e.title,
             artist:e.artist,
+            diff:e.diff,
             bpm:e.bpm
         })
         a[a.length-1].a.volume = config.musicVol
@@ -123,9 +198,10 @@ function initPlaylist(data,config) {
         for (let i=0; i<length ; i++) {           
             if (i == 7) {
                 config.playingTrailer = i % d 
-                $(".first-start .info p:first-child").text(data[i % d].title)
-                $(".first-start .info p:last-child").text(data[i % d].artist)
-                $(".first-start .avt img").attr("src",data[i % d].avt)
+                $(".my-phone .info p:first-child").text(data[i % d].title)
+                $(".my-phone .info p:last-child").text(data[i % d].artist)
+                $(".my-phone .avt img").attr("src",data[i % d].avt)
+                changeDisplayDiffMusic(config,data)
             }
             dom += 
             `
@@ -138,7 +214,7 @@ function initPlaylist(data,config) {
                     <p>${data[i % d].artist}</p>
                 </div>
                 <div class="diff">
-                    <span>${data[i % d].diff}</span>
+                    <span>${data[i % d].diff[config.diffType]}</span>
                 </div>
             </li>
             `
