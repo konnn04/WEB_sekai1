@@ -55,7 +55,7 @@ function initEvent(dom,srcAudio,config) {
 
     $("#ready .start").on("click",(e)=>{
         if (config.playingTrailer == 8) {
-            location.pathname = "./test.html"
+            location.href = location.href+"test.html"
             return
         }
         let obj = {
