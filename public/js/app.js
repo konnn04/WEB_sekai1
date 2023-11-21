@@ -54,6 +54,10 @@ function initEvent(dom,srcAudio,config) {
     })
 
     $("#ready .start").on("click",(e)=>{
+        if (config.playingTrailer == 8) {
+            location.pathname = "./test.html"
+            return
+        }
         let obj = {
             "title":"Tính năng bảo trì!",
             "detail":"Tính năng vẫn đang được phát triển, vui lòng chờ một thời gian sau rồi quay lại nhé!",

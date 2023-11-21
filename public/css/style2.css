@@ -1,0 +1,142 @@
+body{
+    margin: 0;
+    background-color: black;
+    overflow: hidden;
+}
+
+main{
+    position: fixed;
+    top: 0;left: 0;right: 0;bottom: 0;
+}
+
+#bg{
+    position: fixed;
+    bottom: 0;left: 0;right: 0;top: 0;
+}
+
+#bg .img{
+    height: 80vh;
+    position: absolute;
+    top: 0;
+    transition: left .5s linear;
+}
+
+
+#bg .img img{
+    height: 100%;
+}
+
+.game .ground {
+    position: fixed;
+    left: 0;right: 0;bottom: 15%;
+    height: 50px;
+    background-color: blue;
+}
+
+.game{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.game .player,
+.game .sub-player {
+    position: absolute;
+    left: 10%;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    width: 4rem;
+    background-color: rebeccapurple;
+}
+
+.game .sub-player{
+    bottom: calc(10% + 500px);
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+.game .sub-player.press{
+    opacity: 1;
+}
+
+.game .player.press{
+    background-color: green;
+}
+
+.game .line1,
+.game .line2{
+    position: absolute;
+    z-index: 1;
+    left: 0;right: 0;
+    height: 30vh;
+}
+
+.game .line1{
+    /* background-color: rgba(255, 0, 204, 0.572); */
+    bottom: calc(15% + 50px);
+}
+
+.game .line1::after{
+    content: "";
+    border-radius: 50%;
+    border: 2px dashed #898989;
+    position: absolute;
+    height: 20%;
+    aspect-ratio: 1;
+    left: calc(15% + 60px);
+    bottom: 40%;
+}
+
+.game .line2::after{
+    content: "";
+    border-radius: 50%;
+    border: 2px dashed #898989;
+    position: absolute;
+    height: 20%;
+    aspect-ratio: 1;
+    left: calc(15% + 60px);
+    top: 40%;
+}
+
+.game .line1.press::after,
+.game .line2.press::after{
+    background-color: aliceblue;
+}
+
+.game .line2{
+    /* background-color: rgba(0, 255, 81, 0.481); */
+    bottom: calc(15% + 350px);
+}
+
+.game .lineHit{
+    position: fixed;
+    /* border: 1px solid #fff; */
+    top: 0;bottom: 0;left: calc(15% + 80px);
+}
+
+.game .line1 .container ,
+.game .line2 .container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.game .box {
+    position: absolute;
+    top: calc(50% - 40px);
+    left: 0;
+    width: 80px;height: 80px;
+    background-color: brown; 
+}
+
+.game .box::after{
+    /* content: "";
+    position: absolute;
+    top: calc(50% - 40px);
+    width: 80px;height: 80px;
+    background-color: brown; */
+}

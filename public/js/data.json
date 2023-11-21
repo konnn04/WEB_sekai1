@@ -82,6 +82,16 @@
         "end":89.7,
         "bpm":166
     }
-    
-
+    ,
+    {
+        "title":"GODS",
+        "artist":"NewJeans",
+        "diff":[0,11,16],
+        "avt":"./public/img/GODS.jpg",
+        "src":"./public/audio/GODS.mp3",
+        "from":160,
+        "end":187,
+        "bpm":145.45555,
+        "c":3
+    }
 ]
