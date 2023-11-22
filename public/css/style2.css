@@ -133,10 +133,115 @@ main{
     background-color: brown; 
 }
 
+.game .hold {
+    position: absolute;
+    top: calc(50% - 40px);
+    left: 0;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(42, 165, 144); 
+}
+
 .game .box::after{
     /* content: "";
     position: absolute;
     top: calc(50% - 40px);
     width: 80px;height: 80px;
     background-color: brown; */
+}
+
+#AP {
+    position: fixed;
+    z-index: 9;
+    left: 17%;
+    bottom: 55%;
+}
+
+#AP>*{
+    position: absolute;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: aliceblue;
+    font-size: 2rem;
+    text-align: center;
+    width: 200px;
+    scale: 0;
+}
+
+#AP>.pf{
+    /* scale: 1; */
+    background: -webkit-linear-gradient(#87edff, #e7baff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#AP>.gt{
+    /* scale: 1; */
+    background: -webkit-linear-gradient(#f187ff, #fb3e61);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#AP>.gd{
+    /* scale: 1; */
+    background: -webkit-linear-gradient(#7fff6b, #12f48e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#AP>.bad{
+    /* scale: 1; */
+    background: -webkit-linear-gradient(#ffeb87, #f4ac12);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#AP>.miss{
+    /* scale: 1; */
+    background: -webkit-linear-gradient(#ff8787, #f41212);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#AP.pf>.pf{
+    animation: zoomIn .5s;
+
+}
+
+#AP.gt>.gt{
+    animation: zoomIn .5s;
+
+}
+
+#AP.gd>.gd{
+    animation: zoomIn .5s;
+
+}
+
+#AP.bad>.bad{
+    animation: zoomIn .5s;
+
+}
+
+#AP.miss>.miss{
+    animation: zoomIn .5s;
+}
+
+@keyframes zoomIn {
+    0%{
+        scale: 0;
+    }
+    45%{
+        scale: 1.1;
+    }
+    50%{
+        scale: 1;
+    }
+    100%{
+        scale: 1;
+    }
+}
+
+.game .line1 .container>*.h ,
+.game .line2 .container>*.h {
+    display: none;
 }
